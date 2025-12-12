@@ -6,6 +6,7 @@ public class IdleBattle : MonoBehaviour
     public PlayerCharacter player;
     public PlayerCharacter enemy;
 
+
     public float attackInterval = 2f; // seconds
     public float respawnDelay = 3f;   // seconds before enemy respawns
 
@@ -55,10 +56,11 @@ public class IdleBattle : MonoBehaviour
         player.GainXP(enemy.xpPerEnemy);
 
         // Award loot
-        player.coins += enemy.coinsDrop; // make sure player has a coins variable
+        player.GainCoins(enemy.coinsDrop); 
         Debug.Log($"Player received {enemy.coinsDrop} coins! Total coins: {player.coins}");
-        player.bones += enemy.bonesDrop;
+        player.GainBones(enemy.bonesDrop);
         Debug.Log($"Player received {enemy.bonesDrop} bones! Total bones: {player.bones} ");
+
 
 
         //Respawn Enemy

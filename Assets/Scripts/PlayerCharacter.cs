@@ -100,6 +100,15 @@ public class PlayerCharacter : MonoBehaviour
     public void GainCoins(int amount)
     {
         coins += amount;
+        Debug.Log($"{gameObject.name} gained {amount} Coins.");
+
+        UpdateStatsUI();
+    }
+
+    public void GainBones(int amount)
+    {
+        bones += amount;
+        Debug.Log($"{gameObject.name} gained {amount} Bones.");
 
         UpdateStatsUI();
     }
