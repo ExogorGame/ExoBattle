@@ -633,7 +633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IdleBattle
   player: {fileID: 1092749394}
-  enemy: {fileID: 1473610017}
+  enemy: {fileID: 1473610021}
   attackInterval: 2
   respawnDelay: 3
 --- !u!4 &513783483
@@ -1209,18 +1209,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0bbc1aea94cb8468801a301a4a81a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacter
+  enemy: {fileID: 1473610021}
   maxHealth: 100
-  attackPower: 20
+  attackPower: 80
   defense: 5
   currentHealth: 0
   combatLevel: 1
   currentXP: 0
   xpToNextLevel: 100
-  xpPerEnemy: 50
   coins: 0
   bones: 0
-  coinsDrop: 10
-  bonesDrop: 1
   statsText: {fileID: 992680452}
 --- !u!114 &1092749395
 MonoBehaviour:
@@ -1650,7 +1648,7 @@ GameObject:
   - component: {fileID: 1473610018}
   - component: {fileID: 1473610020}
   - component: {fileID: 1473610019}
-  - component: {fileID: 1473610017}
+  - component: {fileID: 1473610021}
   m_Layer: 5
   m_Name: EnemyCharacter
   m_TagString: Untagged
@@ -1658,31 +1656,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1473610017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1473610016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f0bbc1aea94cb8468801a301a4a81a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacter
-  maxHealth: 100
-  attackPower: 5
-  defense: 5
-  currentHealth: 0
-  combatLevel: 1
-  currentXP: 0
-  xpToNextLevel: 100
-  xpPerEnemy: 50
-  coins: 0
-  bones: 0
-  coinsDrop: 10
-  bonesDrop: 1
-  statsText: {fileID: 1373003417}
 --- !u!224 &1473610018
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1740,6 +1713,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1473610016}
   m_CullTransparentMesh: 1
+--- !u!114 &1473610021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473610016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81d81c4b66cd20b4393523de6220d37f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCharacter
+  player: {fileID: 1092749394}
+  enemy: {fileID: 1473610021}
+  maxHealth: 100
+  attackPower: 20
+  defense: 5
+  currentHealth: 0
+  xpPerEnemy: 50
+  coinsDrop: 10
+  bonesDrop: 1
+  statsText: {fileID: 1373003417}
 --- !u!1 &1482835401
 GameObject:
   m_ObjectHideFlags: 0

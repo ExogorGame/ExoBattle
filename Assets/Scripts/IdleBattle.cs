@@ -4,7 +4,7 @@ using System.Collections;
 public class IdleBattle : MonoBehaviour
 {
     public PlayerCharacter player;
-    public PlayerCharacter enemy;
+    public EnemyCharacter enemy;
 
 
     public float attackInterval = 2f; // seconds
@@ -52,16 +52,11 @@ public class IdleBattle : MonoBehaviour
     void RespawnEnemy()
 
     {
-        //Give XP to player
-        player.GainXP(enemy.xpPerEnemy);
+        //Give Loot to Player
+        player.GainLoot(enemy.xpPerEnemy, enemy.coinsDrop, enemy.bonesDrop);
+        
 
-        // Award loot
-        player.GainCoins(enemy.coinsDrop); 
-        Debug.Log($"Player received {enemy.coinsDrop} coins! Total coins: {player.coins}");
-        player.GainBones(enemy.bonesDrop);
-        Debug.Log($"Player received {enemy.bonesDrop} bones! Total bones: {player.bones} ");
-
-
+     
 
         //Respawn Enemy
         enemy.ResetHealth();

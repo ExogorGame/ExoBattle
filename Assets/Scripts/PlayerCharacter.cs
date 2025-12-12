@@ -3,6 +3,8 @@ using TMPro;
 
 public class PlayerCharacter : MonoBehaviour
 {
+    public EnemyCharacter enemy;
+
     [Header("Stats")]
     public int maxHealth = 100;
     public int attackPower = 20;
@@ -13,15 +15,11 @@ public class PlayerCharacter : MonoBehaviour
     public int combatLevel = 1;
     public int currentXP = 0;
     public int xpToNextLevel = 100;
-    public int xpPerEnemy = 50;
+    
 
     [Header("Loot")]
     public int coins = 0;
     public int bones = 0;
-
-    [Header("Loot Settings")]
-    public int coinsDrop = 10; // amount of coins given when killed
-    public int bonesDrop = 1; // amount of bones per kill
 
     [Header("UI")]
     public TextMeshProUGUI statsText;
@@ -33,7 +31,7 @@ public class PlayerCharacter : MonoBehaviour
     }
 
     // Deal damage
-    public void Attack(PlayerCharacter target)
+    public void Attack(EnemyCharacter target)
     {
         if (target == null) return;
 
@@ -56,14 +54,6 @@ public class PlayerCharacter : MonoBehaviour
             Die();
     }
 
-    // Reset health for respawn
-    public void ResetHealth()
-    {
-        currentHealth = maxHealth;
-        UpdateStatsUI();
-        Debug.Log($"{gameObject.name} has respawned!");
-    }
-
     // Called when this character dies
     void Die()
     {
@@ -71,10 +61,10 @@ public class PlayerCharacter : MonoBehaviour
     }
 
     // Gain XP
-    public void GainXP(int amount)
+    public void GainLoot(int xpAmount, int coinsAmount, int bonesAmount)
     {
-        currentXP += amount;
-        Debug.Log($"{gameObject.name} gained {amount} XP. Current XP: {currentXP}/{xpToNextLevel}");
+        currentXP += xpAmount;
+        Debug.Log($"{gameObject.name} gained {xpAmount} XP. Current XP: {currentXP}/{xpToNextLevel}");
 
         // Check for level up
         while (currentXP >= xpToNextLevel)
@@ -82,6 +72,12 @@ public class PlayerCharacter : MonoBehaviour
             currentXP -= xpToNextLevel;
             LevelUp();
         }
+
+        coins += coinsAmount;
+        Debug.Log($"{gameObject.name} gained {coinsAmount} Coins.");
+
+        bones += bonesAmount;
+        Debug.Log($"{gameObject.name} gained {bonesAmount} Bones.");
 
         UpdateStatsUI();
     }
@@ -97,21 +93,6 @@ public class PlayerCharacter : MonoBehaviour
         Debug.Log($"{gameObject.name} leveled up! Combat Level: {combatLevel}");
     }
 
-    public void GainCoins(int amount)
-    {
-        coins += amount;
-        Debug.Log($"{gameObject.name} gained {amount} Coins.");
-
-        UpdateStatsUI();
-    }
-
-    public void GainBones(int amount)
-    {
-        bones += amount;
-        Debug.Log($"{gameObject.name} gained {amount} Bones.");
-
-        UpdateStatsUI();
-    }
 
     void UpdateStatsUI()
     {
