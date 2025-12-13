@@ -16,7 +16,7 @@ public class EnemySelection : MonoBehaviour
 
         // Spawn the new enemy
         EnemyCharacter enemyPrefab = database.enemies[index];
-        activeEnemyInstance = Instantiate(enemyPrefab.gameObject, enemySpawnPoint.position, Quaternion.identity);
+        activeEnemyInstance = Instantiate(enemyPrefab.gameObject, enemySpawnPoint,false);
 
         // Get EnemyCharacter component
         EnemyCharacter newEnemy = activeEnemyInstance.GetComponent<EnemyCharacter>();
