@@ -21,7 +21,7 @@ public class EnemyCharacter : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI statsText;
 
-    void Start()
+    public void Start()
     {
         currentHealth = maxHealth;
         UpdateStatsUI();
@@ -64,13 +64,16 @@ public class EnemyCharacter : MonoBehaviour
     {
         Debug.Log($"{gameObject.name} has died!");
     }
-    void UpdateStatsUI()
+    public void UpdateStatsUI()
     {
         if (statsText != null)
         {
             statsText.text = $"HP: {currentHealth}/{maxHealth}\n" +
                              $"ATK: {attackPower}\n" +
-                             $"DEF: {defense}\n";
+                             $"DEF: {defense}\n" +
+                             $"XP: {xpPerEnemy}\n" +
+                             $"Coins: {coinsDrop}\n" +
+                             $"Bones: {bonesDrop}";
         }
     }
  }

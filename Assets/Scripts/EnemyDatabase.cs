@@ -1,7 +1,7 @@
 using UnityEngine;
 
-public class EnemyDatabase : MonoBehaviour
+[CreateAssetMenu(menuName = "Database/EnemyDatabase")]
+public class EnemyDatabase : ScriptableObject
 {
-    public Enemy[] enemies; // fill this list in the Inspector
+    public EnemyCharacter[] enemies;  // These should be PREFABS
 }
-

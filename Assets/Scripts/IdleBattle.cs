@@ -60,6 +60,7 @@ public class IdleBattle : MonoBehaviour
 
         //Respawn Enemy
         enemy.ResetHealth();
+        enemy.UpdateStatsUI();
         Debug.Log("Enemy has respawned!");
     }
 }
