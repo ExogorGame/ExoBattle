@@ -43,6 +43,12 @@ public class IdleBattle : MonoBehaviour
 
     public void StartBattle()
     {
+        if (enemy == null)
+        {
+            Debug.LogWarning("Please select an enemy!");
+            return;
+        }
+        
         if (battleActive) return;
         battleActive = true;
         Debug.Log("Battle started!");

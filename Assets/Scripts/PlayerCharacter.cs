@@ -50,6 +50,8 @@ public class PlayerCharacter : MonoBehaviour
 
         Debug.Log($"{gameObject.name} took {damage} damage. Health: {currentHealth}/{maxHealth}");
 
+        DamageSplatSpawner.Instance.Spawn(damage, Color.yellow, true);
+
         if (currentHealth <= 0)
             Die();
     }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UIElements;
 
 public class EnemyCharacter : MonoBehaviour
 {
@@ -46,6 +47,8 @@ public class EnemyCharacter : MonoBehaviour
         UpdateStatsUI();
 
         Debug.Log($"{gameObject.name} took {damage} damage. Health: {currentHealth}/{maxHealth}");
+
+        DamageSplatSpawner.Instance.Spawn(damage, Color.red, false);
 
         if (currentHealth <= 0)
             Die();
