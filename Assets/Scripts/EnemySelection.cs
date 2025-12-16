@@ -3,33 +3,41 @@ using UnityEngine;
 public class EnemySelection : MonoBehaviour
 {
     public EnemyDatabase database;
-    public IdleBattle battleSystem;  // Assign in Inspector
-    public Transform enemySpawnPoint; // Where the enemy will appear
+    public IdleBattle battleSystem;
+    public Transform enemySpawnPoint;
 
     private GameObject activeEnemyInstance;
 
     public void SelectEnemy(int index)
     {
-        // Remove previous enemy if one exists
+        // STOP current battle before switching
+        battleSystem.StopBattle();
+
+        // Remove previous enemy
         if (activeEnemyInstance != null)
             Destroy(activeEnemyInstance);
 
-        // Spawn the new enemy
+        // Spawn new enemy
         EnemyCharacter enemyPrefab = database.enemies[index];
-        activeEnemyInstance = Instantiate(enemyPrefab.gameObject, enemySpawnPoint,false);
+        activeEnemyInstance = Instantiate(
+            enemyPrefab.gameObject,
+            enemySpawnPoint,
+            false
+        );
 
-        // Get EnemyCharacter component
-        EnemyCharacter newEnemy = activeEnemyInstance.GetComponent<EnemyCharacter>();
+        EnemyCharacter newEnemy =
+            activeEnemyInstance.GetComponent<EnemyCharacter>();
 
-        // Assign it to the battle system
+        // Assign new enemy to battle system
         battleSystem.enemy = newEnemy;
 
-        // Tell the UI manager which enemy to show
-        Object.FindFirstObjectByType<EnemyUIManager>().SetEnemy(newEnemy);
+        // Update UI
+        Object.FindFirstObjectByType<EnemyUIManager>()
+            .SetEnemy(newEnemy);
 
-        // Update its stats UI immediately
         newEnemy.UpdateStatsUI();
 
         Debug.Log("Selected enemy: " + newEnemy.name);
     }
 }
+

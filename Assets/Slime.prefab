@@ -98,6 +98,8 @@ MonoBehaviour:
   xpPerEnemy: 25
   coinsDrop: 3
   bonesDrop: 1
+  souls: 1
+  soulId: slime
   statsText: {fileID: 0}
 --- !u!212 &2287079214475510804
 SpriteRenderer:

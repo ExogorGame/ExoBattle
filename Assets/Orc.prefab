@@ -113,4 +113,6 @@ MonoBehaviour:
   xpPerEnemy: 60
   coinsDrop: 10
   bonesDrop: 2
+  souls: 1
+  soulId: orc
   statsText: {fileID: 0}

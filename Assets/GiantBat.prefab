@@ -59,6 +59,8 @@ MonoBehaviour:
   xpPerEnemy: 50
   coinsDrop: 10
   bonesDrop: 1
+  souls: 1
+  soulId: giant_bat
   statsText: {fileID: 0}
 --- !u!222 &5977101666318635521
 CanvasRenderer:

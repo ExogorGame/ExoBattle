@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
 public class PlayerCharacter : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class PlayerCharacter : MonoBehaviour
     [Header("Loot")]
     public int coins = 0;
     public int bones = 0;
+    public Dictionary<string, int> souls = new();
 
     [Header("UI")]
     public TextMeshProUGUI statsText;
@@ -84,6 +86,24 @@ public class PlayerCharacter : MonoBehaviour
         UpdateStatsUI();
     }
 
+    public void AddSoul(string soulId, int amount = 1)
+    {
+        if (!souls.ContainsKey(soulId))
+            souls[soulId] = 0;
+
+        souls[soulId] += amount;
+
+        Debug.Log($"Gained {soulId} soul! Total: {souls[soulId]}");
+
+    }
+
+    public int GetSoulCount(string soulId)
+    {
+        return souls.ContainsKey(soulId) ? souls[soulId] : 0;
+    }
+
+
+
     void LevelUp()
     {
         combatLevel++;
@@ -96,7 +116,7 @@ public class PlayerCharacter : MonoBehaviour
     }
 
 
-    void UpdateStatsUI()
+    public void UpdateStatsUI()
     {
         if (statsText != null)
         {
@@ -104,10 +124,10 @@ public class PlayerCharacter : MonoBehaviour
                              $"ATK: {attackPower}\n" +
                              $"DEF: {defense}\n" +
                              $"Level: {combatLevel}\n" +
-                             $"XP: {currentXP}/{xpToNextLevel}" +
-                             $"Coins: {coins}" +
-                             $"Bones: {bones}";
-
+                             $"XP: {currentXP}/{xpToNextLevel}\n" +
+                             $"Coins: {coins}\n" +
+                             $"Bones: {bones}\n" + 
+                             $"Souls: {souls}";
 
         }
     }

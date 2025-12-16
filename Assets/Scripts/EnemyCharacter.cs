@@ -18,6 +18,8 @@ public class EnemyCharacter : MonoBehaviour
     public int xpPerEnemy = 50;
     public int coinsDrop = 10; 
     public int bonesDrop = 1;
+    public int souls = 1;
+    public string soulId;
 
     [Header("UI")]
     public TextMeshProUGUI statsText;

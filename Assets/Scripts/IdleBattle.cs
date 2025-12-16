@@ -6,9 +6,8 @@ public class IdleBattle : MonoBehaviour
     public PlayerCharacter player;
     public EnemyCharacter enemy;
 
-
-    public float attackInterval = 2f; // seconds
-    public float respawnDelay = 3f;   // seconds before enemy respawns
+    public float attackInterval = 2f;
+    public float respawnDelay = 3f;
 
     private float timer = 0f;
     private bool battleActive = false;
@@ -17,21 +16,22 @@ public class IdleBattle : MonoBehaviour
     {
         if (!battleActive) return;
 
-        // If player is dead, stop battle
-        if (player.currentHealth <= 0) return;
+        if (player.currentHealth <= 0)
+        {
+            StopBattle();
+            return;
+        }
 
+        if (enemy == null) return;
 
-
-        // If enemy is dead, start respawn coroutine
         if (enemy.currentHealth <= 0)
         {
-            if (!IsInvoking("RespawnEnemy"))
-                Invoke("RespawnEnemy", respawnDelay);
+            if (!IsInvoking(nameof(RespawnEnemy)))
+                Invoke(nameof(RespawnEnemy), respawnDelay);
 
             return;
         }
 
-        // Auto attack loop
         timer += Time.deltaTime;
         if (timer >= attackInterval)
         {
@@ -48,25 +48,48 @@ public class IdleBattle : MonoBehaviour
             Debug.LogWarning("Please select an enemy!");
             return;
         }
-        
+
         if (battleActive) return;
+
         battleActive = true;
+        timer = 0f;
+
         Debug.Log("Battle started!");
     }
 
+    public void StopBattle()
+    {
+        battleActive = false;
+        timer = 0f;
+
+        // Cancel enemy respawn if switching enemies
+        CancelInvoke(nameof(RespawnEnemy));
+
+        Debug.Log("Battle stopped.");
+    }
 
     void RespawnEnemy()
-
     {
-        //Give Loot to Player
-        player.GainLoot(enemy.xpPerEnemy, enemy.coinsDrop, enemy.bonesDrop);
-        
+        if (enemy == null) return;
 
-     
+        // Give loot
+        player.GainLoot(
+            enemy.xpPerEnemy,
+            enemy.coinsDrop,
+            enemy.bonesDrop
+        );
 
-        //Respawn Enemy
+
+        if (!string.IsNullOrEmpty(enemy.soulId))
+        {
+            player.AddSoul(enemy.soulId);
+            Debug.Log($"Gained {enemy.soulId} soul!");
+        }
+
         enemy.ResetHealth();
         enemy.UpdateStatsUI();
+
         Debug.Log("Enemy has respawned!");
     }
 }
+

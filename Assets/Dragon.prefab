@@ -113,4 +113,6 @@ MonoBehaviour:
   xpPerEnemy: 150
   coinsDrop: 25
   bonesDrop: 5
+  souls: 1
+  soulId: dragon
   statsText: {fileID: 0}
