@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5646369168986049603
+--- !u!1 &8420496776399829970
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1413827071987160712}
-  - component: {fileID: 8268324995405477071}
-  - component: {fileID: 4475567567125063913}
-  - component: {fileID: 4225616912553295291}
+  - component: {fileID: 4929340051580427357}
+  - component: {fileID: 6310823620627939630}
+  - component: {fileID: 1369576128781921394}
+  - component: {fileID: 7738567822631002908}
   m_Layer: 5
-  m_Name: Slime
+  m_Name: RatKing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &1413827071987160712
+--- !u!224 &4929340051580427357
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5646369168986049603}
+  m_GameObject: {fileID: 8420496776399829970}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -35,16 +35,16 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -29.9692, y: -106.4615}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8268324995405477071
+--- !u!114 &6310823620627939630
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5646369168986049603}
+  m_GameObject: {fileID: 8420496776399829970}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81d81c4b66cd20b4393523de6220d37f, type: 3}
@@ -52,31 +52,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCharacter
   player: {fileID: 0}
   enemy: {fileID: 0}
-  maxHealth: 50
-  attackPower: 5
-  defense: 1
+  maxHealth: 100
+  attackPower: 20
+  defense: 5
   currentHealth: 0
-  xpPerEnemy: 25
-  coinsDrop: 3
+  xpPerEnemy: 50
+  coinsDrop: 10
   bonesDrop: 1
   souls: 1
-  soulId: slime
+  soulId: 
   statsText: {fileID: 0}
---- !u!222 &4475567567125063913
+--- !u!222 &1369576128781921394
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5646369168986049603}
+  m_GameObject: {fileID: 8420496776399829970}
   m_CullTransparentMesh: 1
---- !u!114 &4225616912553295291
+--- !u!114 &7738567822631002908
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5646369168986049603}
+  m_GameObject: {fileID: 8420496776399829970}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2911625700801582395, guid: 285da5ea908226c47b0706df00c91f72, type: 3}
+  m_Sprite: {fileID: 7090897648889707828, guid: 285da5ea908226c47b0706df00c91f72, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

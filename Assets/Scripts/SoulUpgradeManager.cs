@@ -6,6 +6,7 @@ public class SoulUpgradeManager : MonoBehaviour
     public static SoulUpgradeManager Instance;
 
     public PlayerCharacter player;
+    public PlayerUI playerUI;
 
     [Header("Upgrade Settings")]
     public int baseSoulCost = 5;
@@ -63,7 +64,7 @@ public class SoulUpgradeManager : MonoBehaviour
         lookup[soulId].level++;
 
         player.attackPower += attackPowerPerLevel;
-        player.UpdateStatsUI();
+        player.UpdateUI();
 
         Debug.Log($"{soulId} upgraded to level {lookup[soulId].level}");
     }

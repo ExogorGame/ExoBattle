@@ -1,10 +1,12 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class PlayerCharacter : MonoBehaviour
 {
     public EnemyCharacter enemy;
+    public PlayerUI playerUI;
 
     [Header("Stats")]
     public int maxHealth = 100;
@@ -29,7 +31,7 @@ public class PlayerCharacter : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        UpdateStatsUI();
+        playerUI.UpdateUI(this);
     }
 
     // Deal damage
@@ -48,7 +50,7 @@ public class PlayerCharacter : MonoBehaviour
     {
         currentHealth -= damage;
         currentHealth = Mathf.Max(currentHealth, 0);
-        UpdateStatsUI();
+        UpdateUI();
 
         Debug.Log($"{gameObject.name} took {damage} damage. Health: {currentHealth}/{maxHealth}");
 
@@ -83,7 +85,7 @@ public class PlayerCharacter : MonoBehaviour
         bones += bonesAmount;
         Debug.Log($"{gameObject.name} gained {bonesAmount} Bones.");
 
-        UpdateStatsUI();
+        UpdateUI();
     }
 
     public void AddSoul(string soulId, int amount = 1)
@@ -116,19 +118,9 @@ public class PlayerCharacter : MonoBehaviour
     }
 
 
-    public void UpdateStatsUI()
+    public void UpdateUI()
     {
-        if (statsText != null)
-        {
-            statsText.text = $"HP: {currentHealth}/{maxHealth}\n" +
-                             $"ATK: {attackPower}\n" +
-                             $"DEF: {defense}\n" +
-                             $"Level: {combatLevel}\n" +
-                             $"XP: {currentXP}/{xpToNextLevel}\n" +
-                             $"Coins: {coins}\n" +
-                             $"Bones: {bones}\n" + 
-                             $"Souls: {souls}";
-
-        }
+        if (playerUI != null)
+            playerUI.UpdateUI(this);
     }
 }
