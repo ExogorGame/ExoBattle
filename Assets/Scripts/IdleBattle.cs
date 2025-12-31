@@ -74,9 +74,7 @@ public class IdleBattle : MonoBehaviour
 
         // Give loot
         player.GainLoot(
-            enemy.xpPerEnemy,
-            enemy.coinsDrop,
-            enemy.bonesDrop
+            enemy.xpPerEnemy
         );
 
 

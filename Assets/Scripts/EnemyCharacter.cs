@@ -16,8 +16,6 @@ public class EnemyCharacter : MonoBehaviour
 
     [Header("Loot Settings")]
     public int xpPerEnemy = 50;
-    public int coinsDrop = 10; 
-    public int bonesDrop = 1;
     public int souls = 1;
     public string soulId;
 
@@ -76,9 +74,7 @@ public class EnemyCharacter : MonoBehaviour
             statsText.text = $"HP: {currentHealth}/{maxHealth}\n" +
                              $"ATK: {attackPower}\n" +
                              $"DEF: {defense}\n" +
-                             $"XP: {xpPerEnemy}\n" +
-                             $"Coins: {coinsDrop}\n" +
-                             $"Bones: {bonesDrop}";
+                             $"XP: {xpPerEnemy}\n";
         }
     }
  }

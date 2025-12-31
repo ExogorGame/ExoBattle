@@ -7,11 +7,11 @@ public class SoulUpgradeButtonUI : MonoBehaviour
     public string soulId;
 
     public Image soulIcon;
-    public TextMeshProUGUI nameText;
     public TextMeshProUGUI levelText;
-    public TextMeshProUGUI costText;
-    public TextMeshProUGUI ownedText;
     public Button upgradeButton;
+    public TextMeshProUGUI soulsText;
+    public TextMeshProUGUI descriptionText;
+
 
     private SoulUpgradeManager mgr;
     private PlayerCharacter player;
@@ -23,9 +23,6 @@ public class SoulUpgradeButtonUI : MonoBehaviour
 
         soulIcon.sprite =
             SoulIconDatabase.Instance.GetIcon(soulId);
-
-        nameText.text =
-            soulId.Replace("_", " ").ToUpper();
 
         Refresh();
     }
@@ -42,12 +39,29 @@ public class SoulUpgradeButtonUI : MonoBehaviour
         int cost = mgr.GetCost(soulId);
         int owned = player.GetSoulCount(soulId);
 
-        levelText.text = $"Level {level}";
-        costText.text = $"Cost: {cost}";
-        ownedText.text = $"Owned: {owned}";
+        levelText.text = $"Lv {level}";
+        soulsText.text = $"{owned} / {cost}";
+        soulsText.color = owned >= cost ? Color.green : Color.red;
 
         upgradeButton.interactable = owned >= cost;
+
+        // Add description
+        var data = mgr.upgrades.Find(u => u.soulId == soulId);
+        if (data != null)
+        {
+            int totalBonus = data.level * data.amountPerLevel;
+            descriptionText.text = $"+{totalBonus} {data.upgradeType.ToString().Replace("Power", " Power")}";
+
+            switch (data.upgradeType)
+            {
+                case SoulUpgradeType.Atk: descriptionText.color = Color.red; break;
+                case SoulUpgradeType.HP: descriptionText.color = Color.green; break;
+                case SoulUpgradeType.Def: descriptionText.color = Color.blue; break;
+            }
+
+        }
     }
+
 
     public void OnClickUpgrade()
     {

@@ -11,7 +11,6 @@ public class SoulUpgradeManager : MonoBehaviour
     [Header("Upgrade Settings")]
     public int baseSoulCost = 5;
     public float costMultiplier = 1.5f;
-    public int attackPowerPerLevel = 3;
 
     [Header("Soul Upgrades")]
     public List<SoulUpgradeData> upgrades = new();
@@ -48,6 +47,26 @@ public class SoulUpgradeManager : MonoBehaviour
         return player.GetSoulCount(soulId) >= GetCost(soulId);
     }
 
+    private void ApplyUpgrade(SoulUpgradeData data)
+    {
+        switch (data.upgradeType)
+        {
+            case SoulUpgradeType.Atk:
+                player.attackPower += data.amountPerLevel;
+                break;
+
+            case SoulUpgradeType.HP:
+                player.maxHealth += data.amountPerLevel;
+                player.currentHealth += data.amountPerLevel; // optional
+                break;
+
+            case SoulUpgradeType.Def:
+                player.defense += data.amountPerLevel;
+                break;
+        }
+    }
+
+
     public void Upgrade(string soulId)
     {
         if (!lookup.ContainsKey(soulId))
@@ -63,7 +82,7 @@ public class SoulUpgradeManager : MonoBehaviour
         player.souls[soulId] -= cost;
         lookup[soulId].level++;
 
-        player.attackPower += attackPowerPerLevel;
+        ApplyUpgrade(lookup[soulId]);
         player.UpdateUI();
 
         Debug.Log($"{soulId} upgraded to level {lookup[soulId].level}");

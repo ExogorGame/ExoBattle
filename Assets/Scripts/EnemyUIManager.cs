@@ -16,12 +16,11 @@ public class EnemyUIManager : MonoBehaviour
     {
         if (currentEnemy == null || statsText == null) return;
 
-        statsText.text = $"HP: {currentEnemy.currentHealth}/{currentEnemy.maxHealth}\n" +
-                         $"ATK: {currentEnemy.attackPower}\n" +
-                         $"DEF: {currentEnemy.defense}\n" +
-                         $"XP: {currentEnemy.xpPerEnemy}\n" +
-                         $"Coins: {currentEnemy.coinsDrop}\n" +
-                         $"Bones: {currentEnemy.bonesDrop}";
+        statsText.text =
+        $"<color=green>HP: {currentEnemy.currentHealth}/{currentEnemy.maxHealth}</color>\n" +
+        $"<color=red>ATK: {currentEnemy.attackPower}</color>\n" +
+        $"<color=blue>DEF: {currentEnemy.defense}</color>\n" +
+        $"XP: {currentEnemy.xpPerEnemy}\n";
     }
 
     void Update()

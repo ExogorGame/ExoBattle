@@ -9,8 +9,8 @@ public class PlayerCharacter : MonoBehaviour
     public PlayerUI playerUI;
 
     [Header("Stats")]
-    public int maxHealth = 100;
-    public int attackPower = 20;
+    public int maxHealth = 10;
+    public int attackPower = 1;
     public int defense = 5;
     public int currentHealth;
 
@@ -21,8 +21,6 @@ public class PlayerCharacter : MonoBehaviour
     
 
     [Header("Loot")]
-    public int coins = 0;
-    public int bones = 0;
     public Dictionary<string, int> souls = new();
 
     [Header("UI")]
@@ -67,7 +65,7 @@ public class PlayerCharacter : MonoBehaviour
     }
 
     // Gain XP
-    public void GainLoot(int xpAmount, int coinsAmount, int bonesAmount)
+    public void GainLoot(int xpAmount)
     {
         currentXP += xpAmount;
         Debug.Log($"{gameObject.name} gained {xpAmount} XP. Current XP: {currentXP}/{xpToNextLevel}");
@@ -78,13 +76,6 @@ public class PlayerCharacter : MonoBehaviour
             currentXP -= xpToNextLevel;
             LevelUp();
         }
-
-        coins += coinsAmount;
-        Debug.Log($"{gameObject.name} gained {coinsAmount} Coins.");
-
-        bones += bonesAmount;
-        Debug.Log($"{gameObject.name} gained {bonesAmount} Bones.");
-
         UpdateUI();
     }
 
@@ -109,9 +100,9 @@ public class PlayerCharacter : MonoBehaviour
     void LevelUp()
     {
         combatLevel++;
-        attackPower += 5;  // Example scaling
-        defense += 2;      // Example scaling
-        maxHealth += 20;
+        attackPower += 1;
+        defense += 1;
+        maxHealth += 5;
         currentHealth = maxHealth;
 
         Debug.Log($"{gameObject.name} leveled up! Combat Level: {combatLevel}");
