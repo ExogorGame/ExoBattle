@@ -24,8 +24,8 @@ public class DamageSplatSpawner : MonoBehaviour
         DamageSplat splat = Instantiate(splatPrefab, canvas.transform, false);
 
         // Offsets for player vs enemy
-        Vector2 playerOffset = new Vector2(-50, 0); // adjust as needed
-        Vector2 enemyOffset = new Vector2(50, 0);   // adjust as needed
+        Vector2 playerOffset = new Vector2(-100, 0); // adjust as needed
+        Vector2 enemyOffset = new Vector2(250, 0);   // adjust as needed
         Vector2 basePosition = Vector2.zero;        // center of canvas
 
         Vector2 spawnPos = basePosition + (isPlayer ? playerOffset : enemyOffset);

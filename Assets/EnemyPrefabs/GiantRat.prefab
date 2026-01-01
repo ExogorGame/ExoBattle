@@ -52,6 +52,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCharacter
   player: {fileID: 0}
   enemy: {fileID: 0}
+  lootTable:
+  - item: {fileID: 11400000, guid: 59f13e994fc234140a67c0f6d7fccb26, type: 2}
+    dropChance: 0.5
+  - item: {fileID: 11400000, guid: fa306ad04d5e2f548be2b819037e5fc1, type: 2}
+    dropChance: 0.5
   maxHealth: 3
   attackPower: 1
   defense: 0

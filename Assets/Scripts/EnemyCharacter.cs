@@ -1,11 +1,16 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UIElements;
+using System.Collections.Generic;
 
 public class EnemyCharacter : MonoBehaviour
 {
     public PlayerCharacter player;
     public EnemyCharacter enemy;
+
+    [Header("Item Drops")]
+    public List<LootEntry> lootTable = new();
+
 
     [Header("Stats")]
     public int maxHealth = 100;
@@ -77,5 +82,26 @@ public class EnemyCharacter : MonoBehaviour
                              $"XP: {xpPerEnemy}\n";
         }
     }
- }
+
+    public ItemInstance TryDropItem()
+    {
+        Debug.Log("Rolling for item drop...");
+
+        foreach (var entry in lootTable)
+        {
+            Debug.Log($"Rolling {entry.item.itemName} with chance {entry.dropChance}");
+
+            if (Random.value <= entry.dropChance)
+            {
+                Debug.Log("Item DROPPED!");
+                return entry.item.CreateInstance();
+            }
+        }
+
+        Debug.Log("No item dropped.");
+        return null;
+    }
+
+
+}
 

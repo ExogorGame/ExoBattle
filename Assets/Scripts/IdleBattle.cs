@@ -6,6 +6,9 @@ public class IdleBattle : MonoBehaviour
     public PlayerCharacter player;
     public EnemyCharacter enemy;
 
+    public InventoryUI inventoryUI;
+
+
     public float attackInterval = 2f;
     public float respawnDelay = 3f;
 
@@ -72,22 +75,26 @@ public class IdleBattle : MonoBehaviour
     {
         if (enemy == null) return;
 
-        // Give loot
-        player.GainLoot(
-            enemy.xpPerEnemy
-        );
+        // XP
+        player.GainLoot(enemy.xpPerEnemy);
 
-
+        // Souls
         if (!string.IsNullOrEmpty(enemy.soulId))
-        {
             player.AddSoul(enemy.soulId);
-            Debug.Log($"Gained {enemy.soulId} soul!");
+
+        // Item drop
+        ItemInstance droppedItem = enemy.TryDropItem();
+        Debug.Log("TryDropItem called");
+        if (droppedItem != null)
+        {
+            player.inventory.Add(droppedItem);
+
+            if (inventoryUI != null)
+                inventoryUI.Refresh();
         }
 
         enemy.ResetHealth();
-        enemy.UpdateStatsUI();
-
-        Debug.Log("Enemy has respawned!");
     }
+
 }
 
