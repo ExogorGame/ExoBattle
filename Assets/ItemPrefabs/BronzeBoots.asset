@@ -10,12 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2e7337b3d67dda4180118daae98e496, type: 3}
-  m_Name: bronzeShield
+  m_Name: BronzeBoots
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: bronze shield
-  itemType: 1
+  itemName: Bronze Boots
+  itemType: 5
   minAttack: 0
   maxAttack: 0
-  minDefense: 2
-  maxDefense: 5
-  icon: {fileID: 2726959620184960519, guid: 0d171a6d7ed13ce44afa490c66a5ab80, type: 3}
+  minDefense: 1
+  maxDefense: 2
+  minHitRating: 0
+  maxHitRating: 0
+  minDodgeRating: 2
+  maxDodgeRating: 3
+  icon: {fileID: 7902364575885455685, guid: c8c09113f50f4ee42bf9e52cceaca773, type: 3}

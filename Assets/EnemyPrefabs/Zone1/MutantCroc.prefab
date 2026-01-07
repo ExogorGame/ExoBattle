@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8420496776399829970
+--- !u!1 &1285306247013391795
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4929340051580427357}
-  - component: {fileID: 6310823620627939630}
-  - component: {fileID: 1369576128781921394}
-  - component: {fileID: 7738567822631002908}
-  m_Layer: 5
-  m_Name: RatKing
+  - component: {fileID: 4657143962976343800}
+  - component: {fileID: 5446756740847235961}
+  - component: {fileID: 8689226797216728330}
+  - component: {fileID: 8838548360583838090}
+  m_Layer: 0
+  m_Name: MutantCroc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &4929340051580427357
+--- !u!224 &4657143962976343800
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8420496776399829970}
+  m_GameObject: {fileID: 1285306247013391795}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -38,13 +38,13 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6310823620627939630
+--- !u!114 &5446756740847235961
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8420496776399829970}
+  m_GameObject: {fileID: 1285306247013391795}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81d81c4b66cd20b4393523de6220d37f, type: 3}
@@ -52,31 +52,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCharacter
   player: {fileID: 0}
   enemy: {fileID: 0}
-  maxHealth: 100
-  attackPower: 20
+  lootTable:
+  - item: {fileID: 11400000, guid: 59f13e994fc234140a67c0f6d7fccb26, type: 2}
+    dropChance: 0.16
+  - item: {fileID: 11400000, guid: ef8f3f549b9aeaf4181a5e0c61e0f01b, type: 2}
+    dropChance: 0.16
+  - item: {fileID: 11400000, guid: fa306ad04d5e2f548be2b819037e5fc1, type: 2}
+    dropChance: 0.16
+  - item: {fileID: 11400000, guid: 67b886dda8f5008488b343765be0f228, type: 2}
+    dropChance: 0.16
+  - item: {fileID: 11400000, guid: 10001b8f13e12d342a8e1bcfc81ba03c, type: 2}
+    dropChance: 0.16
+  - item: {fileID: 11400000, guid: 4a24f5a2750f1664f86f6492c14cf9df, type: 2}
+    dropChance: 0.16
+  maxHealth: 25
+  attackPower: 5
   defense: 5
+  hitRating: 1
+  dodgeRating: 1
   currentHealth: 0
-  xpPerEnemy: 50
-  coinsDrop: 10
-  bonesDrop: 1
+  xpPerEnemy: 1
   souls: 1
-  soulId: rat_king
+  soulId: mutant_croc
   statsText: {fileID: 0}
---- !u!222 &1369576128781921394
+--- !u!222 &8689226797216728330
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8420496776399829970}
+  m_GameObject: {fileID: 1285306247013391795}
   m_CullTransparentMesh: 1
---- !u!114 &7738567822631002908
+--- !u!114 &8838548360583838090
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8420496776399829970}
+  m_GameObject: {fileID: 1285306247013391795}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -90,7 +103,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7090897648889707828, guid: 285da5ea908226c47b0706df00c91f72, type: 3}
+  m_Sprite: {fileID: 2911625700801582395, guid: 285da5ea908226c47b0706df00c91f72, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

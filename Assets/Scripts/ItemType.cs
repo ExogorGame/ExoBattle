@@ -1,6 +1,10 @@
 public enum ItemType
 {
     Weapon,
-    Armour
+    Helmet,
+    Body,
+    Legs,
+    Gloves,
+    Boots,
 }
 

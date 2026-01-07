@@ -13,8 +13,10 @@ public class PlayerUI : MonoBehaviour
     {
         statsText.text =
     $"<color=green>HP: {player.currentHealth}/{player.maxHealth}</color>\n" +
-    $"<color=red>ATK: {player.attackPower}</color>\n" +
-    $"<color=yellow>DEF: {player.defense}</color>";
+    $"<color=red>ATK: {player.attackPower}</color>" +
+    $"<color=blue>DEF: {player.defense}</color>\n" +
+    $"<color=white>HIT: {player.hitRating}</color>" +
+    $"<color=yellow>DODGE: {player.dodgeRating}</color>\n";
 
 
         levelText.text = $"Lvl: {player.combatLevel}";

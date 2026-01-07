@@ -63,6 +63,14 @@ public class SoulUpgradeManager : MonoBehaviour
             case SoulUpgradeType.Def:
                 player.defense += data.amountPerLevel;
                 break;
+
+            case SoulUpgradeType.Hit:
+                player.hitRating += data.amountPerLevel;
+                break;
+
+            case SoulUpgradeType.Dodge:
+                player.dodgeRating += data.amountPerLevel;
+                break;
         }
     }
 

@@ -6,18 +6,29 @@ public class PlayerCharacter : MonoBehaviour
 {
     [Header("Inventory")]
     public List<ItemInstance> inventory = new List<ItemInstance>();
-    public int maxInventorySlots = 32;
+    public int maxInventorySlots = 64;
 
     public ItemInstance equippedWeapon;
-    public ItemInstance equippedArmour;
+    public ItemInstance equippedHelmet;
+    public ItemInstance equippedBody;
+    public ItemInstance equippedLegs;
+    public ItemInstance equippedGloves;
+    public ItemInstance equippedBoots;
+
 
     public EquipmentSlotUI weaponUI;
-    public EquipmentSlotUI armourUI;
+    public EquipmentSlotUI helmetUI;
+    public EquipmentSlotUI bodyUI;
+    public EquipmentSlotUI legsUI;
+    public EquipmentSlotUI glovesUI;
+    public EquipmentSlotUI bootsUI;
 
     [Header("Stats")]
     public int maxHealth = 10;
     public int attackPower = 1;
     public int defense = 5;
+    public int hitRating = 1;
+    public int dodgeRating = 1;
     public int currentHealth;
 
     [Header("Combat Level")]
@@ -30,25 +41,37 @@ public class PlayerCharacter : MonoBehaviour
 
     [Header("UI")]
     public PlayerUI playerUI;
+    public InventoryUI inventoryUI;
     public TextMeshProUGUI statsText;
 
     void Start()
     {
         currentHealth = maxHealth;
         weaponUI?.SetItem(null, this);
-        armourUI?.SetItem(null, this);
+        helmetUI?.SetItem(null, this);
+        bodyUI?.SetItem(null, this);
+        legsUI?.SetItem(null, this);
+        glovesUI?.SetItem(null, this);
+        bootsUI?.SetItem(null, this);
         UpdateUI();
     }
-
-    // Deal damage
     public void Attack(EnemyCharacter target)
     {
         if (target == null) return;
 
+        if (!CombatMath.AttackHits(hitRating, target.dodgeRating))
+        {
+            Debug.Log($"{name} missed {target.name}!");
+            DamageSplatSpawner.Instance.Spawn(0, Color.gray, false);
+            return;
+        }
+
         int finalDamage = Mathf.Max(attackPower - target.defense, 0);
         target.TakeDamage(finalDamage);
-        Debug.Log($"{gameObject.name} attacks {target.gameObject.name} for {finalDamage} damage.");
+
+        Debug.Log($"{name} hit {target.name} for {finalDamage} damage.");
     }
+
 
     // Take damage
     public void TakeDamage(int damage)
@@ -96,46 +119,90 @@ public class PlayerCharacter : MonoBehaviour
         playerUI?.UpdateUI(this);
     }
 
-    // Equip an item and update stats & equipment slots
-    public void EquipItem(ItemInstance item)
+    public void EquipItem(ItemInstance newItem)
     {
-        if (item.itemData.itemType == ItemType.Weapon)
+        if (newItem == null || newItem.itemData == null)
         {
-            if (equippedWeapon != null) attackPower -= equippedWeapon.attack;
-            equippedWeapon = item;
-            attackPower += item.attack;
-            weaponUI?.SetItem(equippedWeapon, this);
+            Debug.LogError("Cannot equip null item or item with null itemData!");
+            return;
         }
-        else if (item.itemData.itemType == ItemType.Armour)
+
+        switch (newItem.itemData.itemType)
         {
-            if (equippedArmour != null) defense -= equippedArmour.defense;
-            equippedArmour = item;
-            defense += item.defense;
-            armourUI?.SetItem(equippedArmour, this);
+            case ItemType.Weapon:
+                SetEquippedItem(ref equippedWeapon, newItem, weaponUI);
+                break;
+
+            case ItemType.Helmet:
+                SetEquippedItem(ref equippedHelmet, newItem, helmetUI);
+                break;
+
+            case ItemType.Body:
+                SetEquippedItem(ref equippedBody, newItem, bodyUI);
+                break;
+
+            case ItemType.Legs:
+                SetEquippedItem(ref equippedLegs, newItem, legsUI);
+                break;
+
+            case ItemType.Gloves:
+                SetEquippedItem(ref equippedGloves, newItem, glovesUI);
+                break;
+
+            case ItemType.Boots:
+                SetEquippedItem(ref equippedBoots, newItem, bootsUI);
+                break;
         }
 
         UpdateUI();
+        InventoryUI inventoryUI = Object.FindFirstObjectByType<InventoryUI>();
+        inventoryUI?.Refresh();
     }
 
-    // Add an item to inventory (returns false if full)
+    private void SetEquippedItem(ref ItemInstance slotItem, ItemInstance newItem, EquipmentSlotUI slotUI)
+    {
+        // Remove stats of previous item in that slot
+        if (slotItem != null)
+            ApplyItemStats(slotItem, -1);
+
+        slotItem = newItem;
+        ApplyItemStats(newItem, +1);
+
+        slotUI?.SetItem(slotItem, this);
+    }
+
+    private void ApplyItemStats(ItemInstance item, int sign)
+    {
+        if (item == null || item.itemData == null) return;
+
+        attackPower += item.attack * sign;
+        defense += item.defense * sign;
+        maxHealth += item.maxHealth * sign;
+        hitRating += item.hitRating * sign;
+        dodgeRating += item.dodgeRating * sign;
+
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+    }
+
+    // ========================= INVENTORY MANAGEMENT =========================
+
     public bool AddItem(ItemInstance item)
     {
         if (inventory.Count >= maxInventorySlots)
         {
-            Debug.Log("Inventory full! Cannot add item: " + item.itemData.itemName);
+            Debug.LogWarning($"Inventory full! Cannot add {item?.itemData?.itemName}");
             return false;
         }
 
-        inventory.Add(item);
+        if (item != null && item.itemData != null)
+            inventory.Add(item);
+
         return true;
     }
 
-    // Remove item from inventory
     public void RemoveItem(ItemInstance item)
     {
-        if (inventory.Contains(item))
-        {
-            inventory.Remove(item);
-        }
+        if (item == null) return;
+        inventory.Remove(item);
     }
 }

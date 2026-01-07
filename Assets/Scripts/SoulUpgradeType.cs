@@ -2,5 +2,7 @@ public enum SoulUpgradeType
 {
     Atk,
     HP,
-    Def
+    Def,
+    Hit,
+    Dodge
 }

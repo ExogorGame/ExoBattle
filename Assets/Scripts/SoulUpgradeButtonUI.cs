@@ -16,11 +16,14 @@ public class SoulUpgradeButtonUI : MonoBehaviour
     private SoulUpgradeManager mgr;
     private PlayerCharacter player;
 
-    void Start()
+    void Awake()
     {
         mgr = SoulUpgradeManager.Instance;
         player = mgr.player;
+    }
 
+    void Start()
+    {
         soulIcon.sprite =
             SoulIconDatabase.Instance.GetIcon(soulId);
 
@@ -31,6 +34,7 @@ public class SoulUpgradeButtonUI : MonoBehaviour
     {
         Refresh();
     }
+
 
 
     public void Refresh()
@@ -57,6 +61,9 @@ public class SoulUpgradeButtonUI : MonoBehaviour
                 case SoulUpgradeType.Atk: descriptionText.color = Color.red; break;
                 case SoulUpgradeType.HP: descriptionText.color = Color.green; break;
                 case SoulUpgradeType.Def: descriptionText.color = Color.blue; break;
+                case SoulUpgradeType.Hit: descriptionText.color = Color.white; break;
+                case SoulUpgradeType.Dodge: descriptionText.color = Color.yellow; break;
+
             }
 
         }

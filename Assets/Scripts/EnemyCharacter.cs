@@ -16,6 +16,8 @@ public class EnemyCharacter : MonoBehaviour
     public int maxHealth = 100;
     public int attackPower = 20;
     public int defense = 5;
+    public int hitRating = 1;
+    public int dodgeRating = 1;
     public int currentHealth;
 
 
@@ -33,18 +35,24 @@ public class EnemyCharacter : MonoBehaviour
         UpdateStatsUI();
     }
 
-    // Deal damage
     public void Attack(PlayerCharacter target)
     {
         if (target == null) return;
 
+        if (!CombatMath.AttackHits(hitRating, target.dodgeRating))
+        {
+            Debug.Log($"{name} missed {target.name}!");
+            DamageSplatSpawner.Instance.Spawn(0, Color.gray, true);
+            return;
+        }
+
         int finalDamage = Mathf.Max(attackPower - target.defense, 0);
         target.TakeDamage(finalDamage);
 
-        Debug.Log($"{gameObject.name} attacks {target.gameObject.name} for {finalDamage} damage.");
+        Debug.Log($"{name} hit {target.name} for {finalDamage} damage.");
     }
 
-    // Take damage
+
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
@@ -59,7 +67,6 @@ public class EnemyCharacter : MonoBehaviour
             Die();
     }
 
-    // Reset health for respawn
     public void ResetHealth()
     {
         currentHealth = maxHealth;
@@ -67,7 +74,6 @@ public class EnemyCharacter : MonoBehaviour
         Debug.Log($"{gameObject.name} has respawned!");
     }
 
-    // Called when this character dies
     void Die()
     {
         Debug.Log($"{gameObject.name} has died!");
@@ -85,22 +91,32 @@ public class EnemyCharacter : MonoBehaviour
 
     public ItemInstance TryDropItem()
     {
-        Debug.Log("Rolling for item drop...");
+        if (lootTable == null || lootTable.Count == 0)
+            return null;
+
+        float totalChance = 0f;
+
+        foreach (var entry in lootTable)
+            totalChance += entry.dropChance;
+
+        float roll = Random.value;
+
+        if (roll > totalChance)
+            return null;
+
+        float cumulative = 0f;
 
         foreach (var entry in lootTable)
         {
-            Debug.Log($"Rolling {entry.item.itemName} with chance {entry.dropChance}");
-
-            if (Random.value <= entry.dropChance)
+            cumulative += entry.dropChance;
+            if (roll <= cumulative)
             {
-                Debug.Log("Item DROPPED!");
                 return entry.item.CreateInstance();
             }
         }
-
-        Debug.Log("No item dropped.");
         return null;
     }
+
 
 
 }
