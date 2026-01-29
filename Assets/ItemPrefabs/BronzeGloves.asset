@@ -12,14 +12,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e7337b3d67dda4180118daae98e496, type: 3}
   m_Name: BronzeGloves
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: Bronze Gloves
+  itemName: Iron Gloves
   itemType: 4
-  minAttack: 0
-  maxAttack: 0
-  minDefense: 1
-  maxDefense: 2
-  minHitRating: 2
-  maxHitRating: 3
-  minDodgeRating: 0
-  maxDodgeRating: 0
   icon: {fileID: 6829406338367461404, guid: 2fac5cf99a32f5b4fb02b086d9abb348, type: 3}
+  tierNames:
+  - tier: 1
+    name: Bronze Gloves
+  - tier: 2
+    name: Iron Gloves
+  mainStat:
+    stat: 3
+    tiers:
+    - min: 3
+      max: 5
+    - min: 5
+      max: 10
+  possibleSubstats:
+  - stat: 2
+    tiers:
+    - min: 5
+      max: 10
+    - min: 10
+      max: 20
+  - stat: 1
+    tiers:
+    - min: 2
+      max: 3
+    - min: 3
+      max: 5
+  - stat: 4
+    tiers:
+    - min: 3
+      max: 5
+    - min: 5
+      max: 10
+  - stat: 7
+    tiers:
+    - min: 3
+      max: 5
+    - min: 5
+      max: 10
+  - stat: 6
+    tiers:
+    - min: 3
+      max: 5
+    - min: 5
+      max: 10
+  - stat: 0
+    tiers:
+    - min: 3
+      max: 5
+    - min: 5
+      max: 10
+  - stat: 5
+    tiers:
+    - min: 5
+      max: 10
+    - min: 8
+      max: 15
+  - stat: 8
+    tiers:
+    - min: 1
+      max: 2
+    - min: 3
+      max: 4
+  - stat: 9
+    tiers:
+    - min: 5
+      max: 10
+    - min: 10
+      max: 15
+  minSubstats: 0
+  maxSubstats: 3

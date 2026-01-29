@@ -52,14 +52,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCharacter
   player: {fileID: 0}
   enemy: {fileID: 0}
-  lootTable: []
+  lootTable:
+  - item: {fileID: 11400000, guid: 59f13e994fc234140a67c0f6d7fccb26, type: 2}
+    dropChance: 0.03
+  - item: {fileID: 11400000, guid: ef8f3f549b9aeaf4181a5e0c61e0f01b, type: 2}
+    dropChance: 0.03
+  - item: {fileID: 11400000, guid: fa306ad04d5e2f548be2b819037e5fc1, type: 2}
+    dropChance: 0.03
+  - item: {fileID: 11400000, guid: 67b886dda8f5008488b343765be0f228, type: 2}
+    dropChance: 0.03
+  - item: {fileID: 11400000, guid: 10001b8f13e12d342a8e1bcfc81ba03c, type: 2}
+    dropChance: 0.03
+  - item: {fileID: 11400000, guid: 4a24f5a2750f1664f86f6492c14cf9df, type: 2}
+    dropChance: 0.03
+  itemTier: 1
   maxHealth: 5
   attackPower: 1
-  defense: 3
+  defense: 1
   hitRating: 1
   dodgeRating: 1
   currentHealth: 0
-  xpPerEnemy: 1
+  xpPerEnemy: 4
   souls: 1
   soulId: sewer_bat
   statsText: {fileID: 0}
@@ -91,7 +104,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3799508404887519019, guid: d448fc656e931604d9c881f8c31ab2f9, type: 3}
+  m_Sprite: {fileID: 991348688833762237, guid: 1bd0a47ed5a05b24d93ead1672ea69cd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

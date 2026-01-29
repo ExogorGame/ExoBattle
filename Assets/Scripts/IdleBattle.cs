@@ -15,11 +15,25 @@ public class IdleBattle : MonoBehaviour
     private float timer = 0f;
     private bool battleActive = false;
 
+    private void Awake()
+    {
+        Application.runInBackground = true;
+    }
+    void Start()
+    {
+        UIManager uiManager = Object.FindFirstObjectByType<UIManager>();
+        uiManager?.InitDeathUI(player, this);
+
+        FindFirstObjectByType<TalentUI>()?.Init(player);
+    }
+
+
+
     void Update()
     {
         if (!battleActive) return;
 
-        if (player.currentHealth <= 0)
+        if (player.isDead)
         {
             StopBattle();
             return;
@@ -77,10 +91,15 @@ public class IdleBattle : MonoBehaviour
 
         // XP
         player.GainLoot(enemy.xpPerEnemy);
+        LootLogUI.Instance?.Show($"+{enemy.xpPerEnemy} XP");
 
         // Souls
         if (!string.IsNullOrEmpty(enemy.soulId))
+        {
             player.AddSoul(enemy.soulId);
+            LootLogUI.Instance?.Show("+1 Soul");
+        }
+            
 
         // Item drop
         ItemInstance droppedItem = enemy.TryDropItem();
@@ -88,6 +107,7 @@ public class IdleBattle : MonoBehaviour
         if (droppedItem != null)
         {
             player.inventory.Add(droppedItem);
+            LootLogUI.Instance?.Show(droppedItem.itemData.itemName);
 
             if (inventoryUI != null)
                 inventoryUI.Refresh();

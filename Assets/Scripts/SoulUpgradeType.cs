@@ -4,5 +4,10 @@ public enum SoulUpgradeType
     HP,
     Def,
     Hit,
-    Dodge
+    Dodge,
+    AtkPercent,
+    HPPercent,
+    DefPercent,
+    CritChance,
+    CritDamage
 }

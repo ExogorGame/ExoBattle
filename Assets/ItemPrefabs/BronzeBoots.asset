@@ -12,14 +12,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e7337b3d67dda4180118daae98e496, type: 3}
   m_Name: BronzeBoots
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: Bronze Boots
+  itemName: Iron Boots
   itemType: 5
-  minAttack: 0
-  maxAttack: 0
-  minDefense: 1
-  maxDefense: 2
-  minHitRating: 0
-  maxHitRating: 0
-  minDodgeRating: 2
-  maxDodgeRating: 3
   icon: {fileID: 7902364575885455685, guid: c8c09113f50f4ee42bf9e52cceaca773, type: 3}
+  tierNames:
+  - tier: 1
+    name: Bronze Boots
+  - tier: 2
+    name: Iron Boots
+  mainStat:
+    stat: 4
+    tiers:
+    - min: 3
+      max: 5
+    - min: 5
+      max: 10
+  possibleSubstats:
+  - stat: 2
+    tiers:
+    - min: 5
+      max: 10
+    - min: 10
+      max: 20
+  - stat: 1
+    tiers:
+    - min: 2
+      max: 3
+    - min: 3
+      max: 5
+  - stat: 4
+    tiers:
+    - min: 3
+      max: 5
+    - min: 5
+      max: 10
+  - stat: 7
+    tiers:
+    - min: 3
+      max: 5
+    - min: 5
+      max: 10
+  - stat: 6
+    tiers:
+    - min: 3
+      max: 5
+    - min: 5
+      max: 10
+  minSubstats: 0
+  maxSubstats: 3

@@ -52,14 +52,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCharacter
   player: {fileID: 0}
   enemy: {fileID: 0}
-  lootTable: []
+  lootTable:
+  - item: {fileID: 11400000, guid: 59f13e994fc234140a67c0f6d7fccb26, type: 2}
+    dropChance: 0.01
+  - item: {fileID: 11400000, guid: ef8f3f549b9aeaf4181a5e0c61e0f01b, type: 2}
+    dropChance: 0.01
+  - item: {fileID: 11400000, guid: fa306ad04d5e2f548be2b819037e5fc1, type: 2}
+    dropChance: 0.01
+  - item: {fileID: 11400000, guid: 67b886dda8f5008488b343765be0f228, type: 2}
+    dropChance: 0.01
+  - item: {fileID: 11400000, guid: 10001b8f13e12d342a8e1bcfc81ba03c, type: 2}
+    dropChance: 0.01
+  - item: {fileID: 11400000, guid: 4a24f5a2750f1664f86f6492c14cf9df, type: 2}
+    dropChance: 0.01
+  itemTier: 2
   maxHealth: 15
   attackPower: 15
   defense: 10
   hitRating: 1
   dodgeRating: 20
   currentHealth: 0
-  xpPerEnemy: 50
+  xpPerEnemy: 10
   souls: 1
   soulId: scrap_golem
   statsText: {fileID: 0}
@@ -91,9 +104,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7090897648889707828, guid: 285da5ea908226c47b0706df00c91f72, type: 3}
+  m_Sprite: {fileID: -8286852428040843922, guid: cd26a29541a72c64893a5828c958e9f8, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

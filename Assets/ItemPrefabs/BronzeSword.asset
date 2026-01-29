@@ -14,8 +14,61 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Bronze Sword
   itemType: 0
-  minAttack: 3
-  maxAttack: 5
-  minDefense: 0
-  maxDefense: 0
   icon: {fileID: 1915966684380849907, guid: b846ec0dc9b33244ea66113133a48fdf, type: 3}
+  tierNames:
+  - tier: 1
+    name: Bronze Sword
+  - tier: 2
+    name: Iron Sword
+  mainStat:
+    stat: 0
+    tiers:
+    - min: 3
+      max: 5
+    - min: 5
+      max: 15
+    - min: 15
+      max: 30
+  possibleSubstats:
+  - stat: 0
+    tiers:
+    - min: 3
+      max: 5
+    - min: 5
+      max: 15
+    - min: 15
+      max: 30
+  - stat: 5
+    tiers:
+    - min: 5
+      max: 10
+    - min: 8
+      max: 15
+    - min: 12
+      max: 25
+  - stat: 3
+    tiers:
+    - min: 3
+      max: 5
+    - min: 5
+      max: 10
+    - min: 10
+      max: 20
+  - stat: 8
+    tiers:
+    - min: 1
+      max: 2
+    - min: 3
+      max: 4
+    - min: 5
+      max: 6
+  - stat: 9
+    tiers:
+    - min: 5
+      max: 10
+    - min: 10
+      max: 15
+    - min: 15
+      max: 20
+  minSubstats: 0
+  maxSubstats: 3

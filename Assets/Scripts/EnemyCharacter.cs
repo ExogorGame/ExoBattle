@@ -11,6 +11,11 @@ public class EnemyCharacter : MonoBehaviour
     [Header("Item Drops")]
     public List<LootEntry> lootTable = new();
 
+    [Header("Tier Settings")]
+    [Tooltip("Determines the tier of items this enemy drops.")]
+    public int itemTier = 1; // 1 = first zone, 2 = second zone, etc
+
+
 
     [Header("Stats")]
     public int maxHealth = 100;
@@ -50,6 +55,7 @@ public class EnemyCharacter : MonoBehaviour
         target.TakeDamage(finalDamage);
 
         Debug.Log($"{name} hit {target.name} for {finalDamage} damage.");
+
     }
 
 
@@ -111,13 +117,10 @@ public class EnemyCharacter : MonoBehaviour
             cumulative += entry.dropChance;
             if (roll <= cumulative)
             {
-                return entry.item.CreateInstance();
+                return entry.item.CreateInstance(itemTier);
             }
         }
         return null;
     }
-
-
-
 }
 

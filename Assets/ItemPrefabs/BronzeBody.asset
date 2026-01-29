@@ -14,12 +14,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Bronze Body
   itemType: 2
-  minAttack: 1
-  maxAttack: 2
-  minDefense: 3
-  maxDefense: 5
-  minHitRating: 0
-  maxHitRating: 0
-  minDodgeRating: 0
-  maxDodgeRating: 0
   icon: {fileID: 2726959620184960519, guid: 0d171a6d7ed13ce44afa490c66a5ab80, type: 3}
+  tierNames:
+  - tier: 1
+    name: Bronze Body
+  - tier: 2
+    name: Iron Body
+  mainStat:
+    stat: 1
+    tiers:
+    - min: 2
+      max: 3
+    - min: 3
+      max: 5
+  possibleSubstats:
+  - stat: 2
+    tiers:
+    - min: 5
+      max: 10
+    - min: 10
+      max: 20
+  - stat: 1
+    tiers:
+    - min: 2
+      max: 3
+    - min: 3
+      max: 5
+  - stat: 4
+    tiers:
+    - min: 3
+      max: 5
+    - min: 5
+      max: 10
+  - stat: 7
+    tiers:
+    - min: 3
+      max: 5
+    - min: 5
+      max: 10
+  - stat: 6
+    tiers:
+    - min: 3
+      max: 5
+    - min: 5
+      max: 10
+  minSubstats: 0
+  maxSubstats: 3

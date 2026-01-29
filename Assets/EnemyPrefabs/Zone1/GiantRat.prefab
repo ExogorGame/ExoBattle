@@ -52,14 +52,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCharacter
   player: {fileID: 0}
   enemy: {fileID: 0}
-  lootTable: []
+  lootTable:
+  - item: {fileID: 11400000, guid: 59f13e994fc234140a67c0f6d7fccb26, type: 2}
+    dropChance: 0.02
+  - item: {fileID: 11400000, guid: ef8f3f549b9aeaf4181a5e0c61e0f01b, type: 2}
+    dropChance: 0.02
+  - item: {fileID: 11400000, guid: fa306ad04d5e2f548be2b819037e5fc1, type: 2}
+    dropChance: 0.02
+  - item: {fileID: 11400000, guid: 67b886dda8f5008488b343765be0f228, type: 2}
+    dropChance: 0.02
+  - item: {fileID: 11400000, guid: 10001b8f13e12d342a8e1bcfc81ba03c, type: 2}
+    dropChance: 0.02
+  - item: {fileID: 11400000, guid: 4a24f5a2750f1664f86f6492c14cf9df, type: 2}
+    dropChance: 0.02
+  itemTier: 1
   maxHealth: 3
   attackPower: 1
   defense: 0
   hitRating: 1
   dodgeRating: 1
   currentHealth: 0
-  xpPerEnemy: 1
+  xpPerEnemy: 3
   souls: 1
   soulId: giant_rat
   statsText: {fileID: 0}

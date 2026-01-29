@@ -6,7 +6,7 @@ public class PlayerCharacter : MonoBehaviour
 {
     [Header("Inventory")]
     public List<ItemInstance> inventory = new List<ItemInstance>();
-    public int maxInventorySlots = 64;
+    public int maxInventorySlots = 80;
 
     public ItemInstance equippedWeapon;
     public ItemInstance equippedHelmet;
@@ -23,18 +23,43 @@ public class PlayerCharacter : MonoBehaviour
     public EquipmentSlotUI glovesUI;
     public EquipmentSlotUI bootsUI;
 
-    [Header("Stats")]
-    public int maxHealth = 10;
-    public int attackPower = 1;
-    public int defense = 5;
+    [Header("BaseStats")]
+    public int baseMaxHealth = 10;
+    public int baseAttackPower = 1;
+    public int baseDefense = 1;
     public int hitRating = 1;
     public int dodgeRating = 1;
     public int currentHealth;
+    public float critChance = 5f;
+    public float critDamage = 50f;
+
+    [Header("Scaling Stats")]
+    public float hpPercent = 0f;   // +10 = +10%
+    public float atkPercent = 0f;
+    public float defPercent = 0f;
+
+    [Header("Talent Stats")]
+    public float trueDamageHPScaling = 0f; // % of max HP as true damage
+    public float defToAtkPercent = 0f;    // % of defense converted to attack
+
+
+    [Header("Final Stats (Calculated)")]
+    public int maxHealth;
+    public int attackPower;
+    public int defense;
+
 
     [Header("Combat Level")]
     public int combatLevel = 1;
     public int currentXP = 0;
     public int xpToNextLevel = 100;
+    public int baseXP = 100;
+    public float xpGrowthRate = 1.25f;
+
+    [Header("Talents")]
+    public int availableTalentPoints = 0;
+    public Talent[] talents;
+
 
     [Header("Loot")]
     public Dictionary<string, int> souls = new();
@@ -44,8 +69,10 @@ public class PlayerCharacter : MonoBehaviour
     public InventoryUI inventoryUI;
     public TextMeshProUGUI statsText;
 
+
     void Start()
     {
+        UpdateXPToNextLevel();
         currentHealth = maxHealth;
         weaponUI?.SetItem(null, this);
         helmetUI?.SetItem(null, this);
@@ -66,11 +93,20 @@ public class PlayerCharacter : MonoBehaviour
             return;
         }
 
-        int finalDamage = Mathf.Max(attackPower - target.defense, 0);
-        target.TakeDamage(finalDamage);
+        int baseDamage = Mathf.Max(attackPower - target.defense, 0);
 
-        Debug.Log($"{name} hit {target.name} for {finalDamage} damage.");
+        bool isCrit = CombatMath.RollCrit(critChance / 100f);
+        int finalDamage = baseDamage;
+
+        if (isCrit)
+            finalDamage = Mathf.RoundToInt(baseDamage * (1f + critDamage / 100f));
+
+        int trueDamage = Mathf.RoundToInt(maxHealth * (trueDamageHPScaling / 100f));
+
+        target.TakeDamage(finalDamage + trueDamage);
+
     }
+
 
 
     // Take damage
@@ -83,7 +119,32 @@ public class PlayerCharacter : MonoBehaviour
         if (currentHealth <= 0) Die();
     }
 
-    void Die() => Debug.Log($"{gameObject.name} has died!");
+    public bool isDead {  get; private set; }
+    void Die()
+    {
+        if (isDead) return;
+
+        isDead = true;
+        Debug.Log($"{gameObject.name} has died!");
+
+        // Show the Death UI via UIManager
+        UIManager uiManager = Object.FindFirstObjectByType<UIManager>();
+        uiManager?.ShowDeathUI();
+    }
+
+
+    public void Respawn()
+    {
+        isDead = false;
+        currentHealth = maxHealth;
+        UpdateUI();
+    }
+
+    void UpdateXPToNextLevel()
+    {
+        xpToNextLevel = Mathf.RoundToInt(baseXP * Mathf.Pow(xpGrowthRate, combatLevel - 1));
+    }
+
 
     // Gain XP
     public void GainLoot(int xpAmount)
@@ -108,10 +169,19 @@ public class PlayerCharacter : MonoBehaviour
     void LevelUp()
     {
         combatLevel++;
-        attackPower++;
-        defense++;
-        maxHealth += 5;
+        baseAttackPower++;
+        baseDefense++;
+        baseMaxHealth += 5;
         currentHealth = maxHealth;
+
+        availableTalentPoints++;
+
+        UpdateXPToNextLevel();
+
+        RecalculateStats();
+        UpdateUI();
+        FindFirstObjectByType<TalentUI>()?.Refresh();
+
     }
 
     public void UpdateUI()
@@ -175,13 +245,19 @@ public class PlayerCharacter : MonoBehaviour
     {
         if (item == null || item.itemData == null) return;
 
-        attackPower += item.attack * sign;
-        defense += item.defense * sign;
-        maxHealth += item.maxHealth * sign;
+        baseAttackPower += item.attack * sign;
+        baseDefense += item.defense * sign;
+        baseMaxHealth += item.maxHealth * sign;
         hitRating += item.hitRating * sign;
         dodgeRating += item.dodgeRating * sign;
+        atkPercent += item.atkPercent * sign;
+        defPercent += item.defPercent * sign;
+        hpPercent += item.hpPercent * sign;
+        critChance += item.critChance * sign;
+        critDamage += item.critDamage * sign;
 
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        RecalculateStats();
     }
 
     // ========================= INVENTORY MANAGEMENT =========================
@@ -205,4 +281,43 @@ public class PlayerCharacter : MonoBehaviour
         if (item == null) return;
         inventory.Remove(item);
     }
+
+    public Talent GetTalent(string talentName)
+    {
+        foreach (var t in talents)
+        {
+            if (t.name == talentName)
+                return t;
+        }
+        return null;
+    }
+
+    public bool SpendTalentPoint(string talentName)
+    {
+        if (availableTalentPoints <= 0)
+            return false;
+
+        Talent talent = GetTalent(talentName);
+        if (talent == null || talent.IsMaxed || !talent.IsUnlocked(this))
+            return false;
+
+        talent.Upgrade(this);
+        availableTalentPoints--;
+        UpdateUI();
+        return true;
+    }
+
+    public void RecalculateStats()
+    {
+        maxHealth = Mathf.RoundToInt(baseMaxHealth * (1f + hpPercent / 100f));
+        defense = Mathf.RoundToInt(baseDefense * (1f + defPercent / 100f));
+
+        // Convert defense into attack BEFORE attack scaling
+        int convertedAtk = Mathf.RoundToInt(defense * (defToAtkPercent / 100f));
+        attackPower = baseAttackPower + convertedAtk;
+        attackPower = Mathf.RoundToInt(attackPower * (1f + atkPercent / 100f));
+
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+    }
+
 }

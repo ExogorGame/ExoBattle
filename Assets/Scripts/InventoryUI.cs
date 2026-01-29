@@ -9,7 +9,7 @@ public class InventoryUI : MonoBehaviour
 
     [Header("Grid Settings")]
     public int columns = 8;
-    public int rows = 8;
+    public int rows = 10;
 
     private List<InventorySlotUI> slots = new List<InventorySlotUI>();
     private int totalSlots => columns * rows;

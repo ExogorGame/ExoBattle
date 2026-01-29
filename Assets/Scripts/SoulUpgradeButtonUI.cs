@@ -55,17 +55,6 @@ public class SoulUpgradeButtonUI : MonoBehaviour
         {
             int totalBonus = data.level * data.amountPerLevel;
             descriptionText.text = $"+{totalBonus} {data.upgradeType.ToString().Replace("Power", " Power")}";
-
-            switch (data.upgradeType)
-            {
-                case SoulUpgradeType.Atk: descriptionText.color = Color.red; break;
-                case SoulUpgradeType.HP: descriptionText.color = Color.green; break;
-                case SoulUpgradeType.Def: descriptionText.color = Color.blue; break;
-                case SoulUpgradeType.Hit: descriptionText.color = Color.white; break;
-                case SoulUpgradeType.Dodge: descriptionText.color = Color.yellow; break;
-
-            }
-
         }
     }
 

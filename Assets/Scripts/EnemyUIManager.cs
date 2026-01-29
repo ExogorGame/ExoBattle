@@ -18,9 +18,9 @@ public class EnemyUIManager : MonoBehaviour
 
         statsText.text =
         $"<color=green>HP: {currentEnemy.currentHealth}/{currentEnemy.maxHealth}</color>\n" +
-        $"<color=red>ATK: {currentEnemy.attackPower}</color>" +
+        $"<color=red>ATK: {currentEnemy.attackPower}</color>\t" +
         $"<color=blue>DEF: {currentEnemy.defense}</color>\n" +
-        $"<color=white>HIT: {currentEnemy.hitRating}</color>" +
+        $"<color=white>HIT: {currentEnemy.hitRating}</color>\t" +
         $"<color=yellow>DODGE: {currentEnemy.dodgeRating}</color>\n" +
         $"XP: {currentEnemy.xpPerEnemy}\n";
     }

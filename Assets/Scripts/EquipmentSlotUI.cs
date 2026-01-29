@@ -28,6 +28,6 @@ public class EquipmentSlotUI : MonoBehaviour, IPointerClickHandler
         if (equippedItem == null || player == null) return;
 
         Vector2 offset = new Vector2(16f, -16f);
-        TooltipUI.Instance.Show(equippedItem, player, eventData.position + offset, canEquip: false);
+        TooltipUI.Instance.Show(equippedItem, player, canEquip: false);
     }
 }

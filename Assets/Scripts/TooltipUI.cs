@@ -6,7 +6,11 @@ public class TooltipUI : MonoBehaviour
 {
     public static TooltipUI Instance;
 
-    public TextMeshProUGUI tooltipText;
+    public Image itemIcon;
+    public TextMeshProUGUI itemNameText;
+    public TextMeshProUGUI mainStatText;
+    public TextMeshProUGUI[] substatTexts;
+
     public CanvasGroup canvasGroup;
     public Button equipButton;
     public Button destroyButton;
@@ -21,30 +25,62 @@ public class TooltipUI : MonoBehaviour
         Hide();
     }
 
-    public void Show(ItemInstance item, PlayerCharacter player, Vector2 position, bool canEquip, InventoryUI inventoryUI = null)
+    public void Show(ItemInstance item, PlayerCharacter player, bool canEquip, InventoryUI inventoryUI = null)
     {
         currentItem = item;
         currentPlayer = player;
         currentInventoryUI = inventoryUI;
-
 
         equipButton.gameObject.SetActive(canEquip);
         destroyButton.gameObject.SetActive(item != null);
 
         if (item == null || item.itemData == null)
         {
-            tooltipText.text = "";
+            Hide();
             return;
         }
 
-        string stats = "";
-        if (item.attack != 0) stats += $"ATK: {item.attack}\n";
-        if (item.defense != 0) stats += $"DEF: {item.defense}\n";
-        if (item.maxHealth != 0) stats += $"HP: {item.maxHealth}\n";
-        if (item.hitRating != 0) stats += $"HIT: {item.hitRating}\n";
-        if (item.dodgeRating != 0) stats += $"DODGE: {item.dodgeRating}\n";
+        // ===== ICON & NAME =====
+        itemIcon.sprite = item.itemData.icon;
+        itemNameText.text = item.itemData.itemName;
+        itemNameText.color = new Color(1f, 0.85f, 0.3f);
 
-        tooltipText.text = $"<b>{item.itemData.itemName}</b>\n{stats.TrimEnd()}";
+        // ===== MAIN STAT =====
+        StatRoll mainRoll = item.rolls.Find(r => r.isMainStat);
+        if (mainRoll != null)
+        {
+            mainStatText.text =
+                $"{mainRoll.stat}: {mainRoll.value} <color=#888>({mainRoll.min}-{mainRoll.max})</color>";
+            mainStatText.gameObject.SetActive(true);
+        }
+        else
+        {
+            mainStatText.gameObject.SetActive(false);
+        }
+
+        // ===== SUBSTATS =====
+        int subIndex = 0;
+
+        foreach (var roll in item.rolls)
+        {
+            if (roll.isMainStat)
+                continue;
+
+            if (subIndex >= substatTexts.Length)
+                break;
+
+            substatTexts[subIndex].text =
+                $"{roll.stat}: {roll.value} <color=#888>({roll.min}-{roll.max})</color>";
+
+            substatTexts[subIndex].gameObject.SetActive(true);
+            subIndex++;
+        }
+
+        // Hide unused substat slots
+        for (int i = subIndex; i < substatTexts.Length; i++)
+        {
+            substatTexts[i].gameObject.SetActive(false);
+        }
 
         equipButton.onClick.RemoveAllListeners();
         equipButton.onClick.AddListener(OnEquipClicked);
@@ -52,9 +88,11 @@ public class TooltipUI : MonoBehaviour
         destroyButton.onClick.RemoveAllListeners();
         destroyButton.onClick.AddListener(OnDestroyClicked);
 
-        transform.position = position;
         canvasGroup.alpha = 1;
+        canvasGroup.blocksRaycasts = true;
+        canvasGroup.interactable = true;
     }
+
 
 
 
@@ -62,6 +100,9 @@ public class TooltipUI : MonoBehaviour
     public void Hide()
     {
         canvasGroup.alpha = 0;
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.interactable = false;
+
         currentItem = null;
         currentPlayer = null;
         currentInventoryUI = null;

@@ -12,12 +12,13 @@ public class PlayerUI : MonoBehaviour
     public void UpdateUI(PlayerCharacter player)
     {
         statsText.text =
-    $"<color=green>HP: {player.currentHealth}/{player.maxHealth}</color>\n" +
-    $"<color=red>ATK: {player.attackPower}</color>" +
-    $"<color=blue>DEF: {player.defense}</color>\n" +
-    $"<color=white>HIT: {player.hitRating}</color>" +
-    $"<color=yellow>DODGE: {player.dodgeRating}</color>\n";
-
+    $"<color=green>Hp: {player.currentHealth}/{player.maxHealth}</color>\n" +
+    $"<color=red>Atk: {player.attackPower}</color>\t" +
+    $"<color=blue>Def: {player.defense}</color>\n" +
+    $"<color=white>Hit: {player.hitRating}</color>\t" +
+    $"<color=yellow>Dodge: {player.dodgeRating}</color>\n" +
+    $"<color=yellow>Crit: {player.critChance:F1}%\t" +
+    $"<color=yellow>CDmg: +{player.critDamage:F0}%</color>\n";
 
         levelText.text = $"Lvl: {player.combatLevel}";
         xpText.text = $"XP: {player.currentXP}/{player.xpToNextLevel}";

@@ -34,7 +34,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
     {
         if (item == null || player == null) return;
         Vector2 offset = new Vector2(16f, -16f);
-        TooltipUI.Instance.Show(item, player, eventData.position + offset, canEquip: true, inventoryUI);
+        TooltipUI.Instance.Show(item, player, canEquip: true, inventoryUI);
     }
 }
 

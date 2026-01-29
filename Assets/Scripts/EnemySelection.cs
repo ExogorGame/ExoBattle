@@ -10,14 +10,11 @@ public class EnemySelection : MonoBehaviour
 
     public void SelectEnemy(int index)
     {
-        // STOP current battle before switching
         battleSystem.StopBattle();
 
-        // Remove previous enemy
         if (activeEnemyInstance != null)
             Destroy(activeEnemyInstance);
 
-        // Spawn new enemy
         EnemyCharacter enemyPrefab = database.enemies[index];
         activeEnemyInstance = Instantiate(
             enemyPrefab.gameObject,
@@ -25,19 +22,16 @@ public class EnemySelection : MonoBehaviour
             false
         );
 
-        EnemyCharacter newEnemy =
-            activeEnemyInstance.GetComponent<EnemyCharacter>();
+        EnemyCharacter newEnemy = activeEnemyInstance.GetComponent<EnemyCharacter>();
 
-        // Assign new enemy to battle system
         battleSystem.enemy = newEnemy;
 
-        // Update UI
         Object.FindFirstObjectByType<EnemyUIManager>()
             .SetEnemy(newEnemy);
 
         newEnemy.UpdateStatsUI();
 
-        Debug.Log("Selected enemy: " + newEnemy.name);
+        Debug.Log("Selected enemy: " + newEnemy.name + " (Tier " + newEnemy.itemTier + ")");
     }
 }
 

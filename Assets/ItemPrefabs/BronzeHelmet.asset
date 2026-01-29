@@ -14,8 +14,61 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Bronze Helmet
   itemType: 1
-  minAttack: 0
-  maxAttack: 0
-  minDefense: 1
-  maxDefense: 2
   icon: {fileID: 309628545801974608, guid: 63a8abba9ead7734ca7d82d7ba1230e5, type: 3}
+  tierNames:
+  - tier: 1
+    name: Bronze Helmet
+  - tier: 2
+    name: Iron Helmet
+  mainStat:
+    stat: 2
+    tiers:
+    - min: 5
+      max: 10
+    - min: 10
+      max: 20
+  possibleSubstats:
+  - stat: 2
+    tiers:
+    - min: 5
+      max: 10
+    - min: 10
+      max: 20
+  - stat: 1
+    tiers:
+    - min: 2
+      max: 3
+    - min: 3
+      max: 5
+  - stat: 8
+    tiers:
+    - min: 1
+      max: 2
+    - min: 3
+      max: 4
+  - stat: 9
+    tiers:
+    - min: 5
+      max: 10
+    - min: 10
+      max: 15
+  - stat: 4
+    tiers:
+    - min: 3
+      max: 5
+    - min: 5
+      max: 10
+  - stat: 7
+    tiers:
+    - min: 3
+      max: 5
+    - min: 5
+      max: 10
+  - stat: 6
+    tiers:
+    - min: 3
+      max: 5
+    - min: 5
+      max: 10
+  minSubstats: 0
+  maxSubstats: 3
